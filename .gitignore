@@ -1,0 +1,15 @@
+# dependências / build
+node_modules/
+.cache/
+dist/
+
+# Netlify
+.netlify/
+
+# sistema
+.DS_Store
+Thumbs.db
+
+# editores
+.vscode/
+.idea/
