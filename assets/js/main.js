@@ -270,6 +270,22 @@
     });
   }
 
+  /* ---------- voltar ao topo ----------
+     O cabeçalho é position: sticky, e navegar para #topo por âncora nesse
+     caso rola para um ponto errado da página. Aqui rolamos direto para o
+     início (o hero), de forma suave. */
+  function voltarAoTopo() {
+    $all('a[href="#topo"]').forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: reduzMovimento ? "auto" : "smooth" });
+        if (window.history && history.replaceState) {
+          history.replaceState(null, "", location.pathname + location.search);
+        }
+      });
+    });
+  }
+
   /* ---------- init ---------- */
   preloader();
   document.addEventListener("DOMContentLoaded", function () {
@@ -282,6 +298,7 @@
     formulario();
     statusLoja();
     copiarEndereco();
+    voltarAoTopo();
     var ano = document.getElementById("ano");
     if (ano) ano.textContent = new Date().getFullYear();
   });

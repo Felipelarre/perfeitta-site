@@ -193,23 +193,6 @@ h1, h2, h3 {
 }
 @keyframes carregar { to { transform: scaleX(1); } }
 
-/* ---------- faixa topo ---------- */
-.faixa-topo {
-  background: var(--tinta);
-  color: var(--claro-70);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-}
-.faixa-topo-conteudo {
-  display: flex;
-  gap: 0.9rem;
-  justify-content: center;
-  align-items: center;
-  padding-block: 0.55rem;
-  flex-wrap: wrap;
-}
-.faixa-topo .ponto { color: var(--fucsia-brilho); }
-
 /* ---------- cabeçalho ---------- */
 .cabecalho {
   position: sticky;
@@ -408,7 +391,6 @@ h1, h2, h3 {
 }
 .marquee-trilho {
   display: flex;
-  gap: 1.6rem;
   width: max-content;
   animation: correr 34s linear infinite;
   font-family: var(--fonte-titulo);
@@ -416,7 +398,18 @@ h1, h2, h3 {
   font-size: 1.15rem;
   color: var(--tinta-70);
 }
-.marquee-trilho span:nth-child(even) { color: var(--fucsia); }
+/* dois grupos idênticos, cada um com no mínimo a largura da tela:
+   como são exatamente 2, o translateX(-50%) reseta no início da 2ª
+   cópia; o min-width garante que não sobre espaço vazio na tela */
+.marquee-grupo {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: 100vw;
+  gap: 1.6rem;
+  padding-right: 1.6rem;
+  justify-content: space-around;
+}
+.marquee-grupo span:nth-child(even) { color: var(--fucsia); }
 @keyframes correr { to { transform: translateX(-50%); } }
 
 /* ---------- sobre ---------- */
@@ -871,36 +864,6 @@ h1, h2, h3 {
 .voltar-topo:hover { color: #F0A9C8; }
 .voltar-topo svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
 
-/* ---------- whatsapp flutuante ---------- */
-.wa-flutuante {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 80;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--zap);
-  color: #fff;
-  display: grid;
-  place-content: center;
-  box-shadow: 0 12px 28px -8px rgba(31, 168, 85, 0.6);
-  transition: transform var(--t);
-}
-.wa-flutuante:hover { transform: scale(1.08); }
-.wa-flutuante svg { width: 30px; height: 30px; fill: currentColor; }
-.wa-anel {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--zap);
-  animation: anel 2.6s var(--ease) infinite;
-}
-@keyframes anel {
-  0% { transform: scale(1); opacity: 0.7; }
-  70%, 100% { transform: scale(1.7); opacity: 0; }
-}
-
 /* ---------- reveal (só quando há JS) ---------- */
 .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
 .js .reveal.dentro { opacity: 1; transform: none; }
@@ -920,7 +883,6 @@ h1, h2, h3 {
 
 @media (max-width: 780px) {
   .area { padding-inline: 20px; }
-  .faixa-topo { display: none; }
   .nav { display: none; }
   .cabecalho-acoes .botao-p { display: none; }
   .menu-botao { display: flex; }
@@ -952,5 +914,4 @@ h1, h2, h3 {
   .reveal { opacity: 1 !important; transform: none !important; }
   .marquee-trilho { animation: none; }
   .preloader-linha { transform: scaleX(1); }
-  .wa-anel { display: none; }
 }
