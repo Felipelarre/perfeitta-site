@@ -398,16 +398,15 @@ h1, h2, h3 {
   font-size: 1.15rem;
   color: var(--tinta-70);
 }
-/* dois grupos idênticos, cada um com no mínimo a largura da tela:
-   como são exatamente 2, o translateX(-50%) reseta no início da 2ª
-   cópia; o min-width garante que não sobre espaço vazio na tela */
+/* dois grupos idênticos com espaçamento uniforme (o padding-right iguala
+   a emenda entre eles aos vãos internos). O JS (marquee() em main.js)
+   repete os itens dentro de cada grupo até cobrir a largura da tela,
+   para o loop translateX(-50%) nunca deixar espaço vazio. */
 .marquee-grupo {
   display: flex;
   flex: 0 0 auto;
-  min-width: 100vw;
   gap: 1.6rem;
   padding-right: 1.6rem;
-  justify-content: space-around;
 }
 .marquee-grupo span:nth-child(even) { color: var(--fucsia); }
 @keyframes correr { to { transform: translateX(-50%); } }

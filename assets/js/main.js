@@ -286,6 +286,36 @@
     });
   }
 
+  /* ---------- marquee (faixa de categorias) ----------
+     São dois grupos idênticos e a animação faz translateX(-50%). Para o
+     loop não deixar espaço vazio, cada grupo precisa ser pelo menos tão
+     largo quanto a tela — então repetimos os itens dentro de cada grupo
+     até cobrir. Refaz no resize. */
+  function marquee() {
+    if (reduzMovimento) return;
+    var trilho = document.querySelector(".marquee-trilho");
+    var caixa = document.querySelector(".marquee");
+    if (!trilho || !caixa) return;
+    var grupos = $all(".marquee-grupo", trilho);
+    if (grupos.length < 2) return;
+    var base = grupos[0].innerHTML;
+
+    function preencher() {
+      grupos.forEach(function (g) { g.innerHTML = base; });
+      var guarda = 0;
+      while (grupos[0].getBoundingClientRect().width < caixa.clientWidth && guarda++ < 24) {
+        grupos.forEach(function (g) { g.insertAdjacentHTML("beforeend", base); });
+      }
+    }
+    preencher();
+
+    var t;
+    window.addEventListener("resize", function () {
+      clearTimeout(t);
+      t = setTimeout(preencher, 200);
+    }, { passive: true });
+  }
+
   /* ---------- init ---------- */
   preloader();
   document.addEventListener("DOMContentLoaded", function () {
@@ -299,6 +329,7 @@
     statusLoja();
     copiarEndereco();
     voltarAoTopo();
+    marquee();
     var ano = document.getElementById("ano");
     if (ano) ano.textContent = new Date().getFullYear();
   });
