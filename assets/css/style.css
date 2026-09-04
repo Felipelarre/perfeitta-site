@@ -17,15 +17,38 @@
   --fucsia: #C11B6B;
   --fucsia-texto: #A81559;
   --fucsia-brilho: #E01B74;
+  --fucsia-claro: #F0A9C8;   /* acento sobre fundo escuro + estados de erro */
   --esmeralda: #1F7A5A;
-  --zap: #1FA855;
+  --zap: #1FA855;            /* indicador "aberto agora" da loja */
+  --wa: #25D366;             /* verde WhatsApp (marca) — botão flutuante */
+  --wa-escuro: #1FB457;      /* hover do botão flutuante */
 
   --claro: #F4EFE7;
   --claro-70: rgba(244, 239, 231, 0.74);
   --claro-40: rgba(244, 239, 231, 0.58);
+  --branco: #fff;            /* texto/ícone sobre cor saturada (fúcsia, verde, preto) */
 
   --fonte-titulo: "Fraunces", Georgia, "Times New Roman", serif;
   --fonte-texto: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* escala tipográfica — 7 degraus (títulos usam clamp() próprio) */
+  --txt-2xs: 0.6875rem;  /* 11px — micro-rótulos rastreados */
+  --txt-xs:  0.75rem;    /* 12px — versaletes, rótulos, legendas */
+  --txt-sm:  0.875rem;   /* 14px — apoio, notas de card */
+  --txt-md:  0.9375rem;  /* 15px — texto de UI, botões, inputs */
+  --txt-base: 1rem;      /* 16px — corpo */
+  --txt-lg:  1.0625rem;  /* 17px — parágrafo de abertura */
+  --txt-xl:  1.125rem;   /* 18px — intro de seção, marquee */
+
+  /* escala de espaçamento — múltiplos de 4px */
+  --space-3xs: 0.25rem;  /*  4 */
+  --space-2xs: 0.5rem;   /*  8 */
+  --space-xs:  0.75rem;  /* 12 */
+  --space-sm:  1rem;     /* 16 */
+  --space-md:  1.5rem;   /* 24 */
+  --space-lg:  2rem;     /* 32 */
+  --space-xl:  3rem;     /* 48 */
+  --space-2xl: 4rem;     /* 64 */
 
   --raio: 4px;
   --raio-g: 10px;
@@ -64,12 +87,12 @@ h1, h2, h3 {
   font-optical-sizing: auto;
 }
 
-::selection { background: var(--fucsia); color: #fff; }
+::selection { background: var(--fucsia); color: var(--branco); }
 
 :focus-visible {
   outline: 2px solid var(--fucsia);
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: var(--raio);
 }
 
 /* ---------- utilidades ---------- */
@@ -98,8 +121,8 @@ h1, h2, h3 {
   height: 1px;
   background: var(--fucsia);
 }
-.sobrescrito-claro { color: #F0A9C8; }
-.sobrescrito-claro::before { background: #F0A9C8; }
+.sobrescrito-claro { color: var(--fucsia-claro); }
+.sobrescrito-claro::before { background: var(--fucsia-claro); }
 
 .secao-cabeca { max-width: 46ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .secao-cabeca h2,
@@ -145,13 +168,13 @@ h1, h2, h3 {
 .botao-bloco { width: 100%; }
 
 .botao-cheio { background: var(--tinta); color: var(--claro); border-color: var(--tinta); }
-.botao-cheio:hover { background: var(--fucsia); border-color: var(--fucsia); color: #fff; transform: translateY(-2px); }
+.botao-cheio:hover { background: var(--fucsia); border-color: var(--fucsia); color: var(--branco); transform: translateY(-2px); }
 
 .botao-vazado { border-color: var(--linha-forte); color: var(--tinta); }
 .botao-vazado:hover { background: var(--tinta); border-color: var(--tinta); color: var(--claro); transform: translateY(-2px); }
 
-.botao-rosa { background: var(--fucsia-brilho); color: #fff; border-color: var(--fucsia-brilho); }
-.botao-rosa:hover { background: #fff; color: var(--tinta); border-color: #fff; }
+.botao-rosa { background: var(--fucsia-brilho); color: var(--branco); border-color: var(--fucsia-brilho); }
+.botao-rosa:hover { background: var(--branco); color: var(--tinta); border-color: var(--branco); }
 
 .ico-wa { width: 1.15em; height: 1.15em; fill: currentColor; flex-shrink: 0; }
 .ico-ext { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -597,7 +620,7 @@ h1, h2, h3 {
   place-content: center;
   transition: background var(--t), color var(--t), border-color var(--t);
 }
-.video-setas button:hover { background: var(--fucsia); border-color: var(--fucsia); color: #fff; }
+.video-setas button:hover { background: var(--fucsia); border-color: var(--fucsia); color: var(--branco); }
 .video-setas svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .video-trilho {
@@ -635,13 +658,13 @@ h1, h2, h3 {
   padding: 1.1rem;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) 55%, transparent);
 }
-.reel-nome { font-family: var(--fonte-titulo); font-size: 1rem; font-weight: 500; color: #fff; }
+.reel-nome { font-family: var(--fonte-titulo); font-size: 1rem; font-weight: 500; color: var(--branco); }
 .reel-cta {
   font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #F0A9C8;
+  color: var(--fucsia-claro);
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -732,8 +755,8 @@ h1, h2, h3 {
   border-color: var(--fucsia-brilho);
   background: rgba(244, 239, 231, 0.12);
 }
-.campo input[aria-invalid="true"], .campo textarea[aria-invalid="true"] { border-color: #F0A9C8; }
-.campo-erro { font-size: 0.78rem; color: #F0A9C8; }
+.campo input[aria-invalid="true"], .campo textarea[aria-invalid="true"] { border-color: var(--fucsia-claro); }
+.campo-erro { font-size: 0.78rem; color: var(--fucsia-claro); }
 
 .campo-chips { border: 0; }
 .campo-chips legend { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--claro-70); margin-bottom: 0.5rem; }
@@ -750,7 +773,7 @@ h1, h2, h3 {
   transition: background var(--t), color var(--t), border-color var(--t);
 }
 .chip:hover { background: rgba(244, 239, 231, 0.14); color: var(--claro); }
-.chip.ativo { background: var(--fucsia-brilho); border-color: var(--fucsia-brilho); color: #fff; font-weight: 600; }
+.chip.ativo { background: var(--fucsia-brilho); border-color: var(--fucsia-brilho); color: var(--branco); font-weight: 600; }
 
 .form-lgpd { font-size: 0.76rem; color: var(--claro-40); line-height: 1.55; }
 
@@ -848,7 +871,7 @@ h1, h2, h3 {
   margin-bottom: 0.4rem;
 }
 .rodape-col a, .rodape-col span { font-size: 0.9rem; transition: color 0.2s; }
-.rodape-col a:hover { color: #F0A9C8; }
+.rodape-col a:hover { color: var(--fucsia-claro); }
 .rodape-base {
   display: flex;
   justify-content: space-between;
@@ -860,7 +883,7 @@ h1, h2, h3 {
   color: var(--claro-40);
 }
 .voltar-topo { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; transition: color 0.2s; }
-.voltar-topo:hover { color: #F0A9C8; }
+.voltar-topo:hover { color: var(--fucsia-claro); }
 .voltar-topo svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
 
 /* ---------- reveal (só quando há JS) ---------- */
