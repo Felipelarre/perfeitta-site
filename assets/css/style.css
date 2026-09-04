@@ -886,6 +886,32 @@ h1, h2, h3 {
 .voltar-topo:hover { color: var(--fucsia-claro); }
 .voltar-topo svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
 
+/* ---------- whatsapp flutuante (mobile) ----------
+   Fica escondido no desktop (o cabeçalho já tem o botão). No mobile
+   aparece depois que a pessoa rola além do hero. Se o main.js falhar,
+   a classe .armado nunca é adicionada e o botão simplesmente fica
+   visível — sem depender de JS para o CTA de conversão existir. */
+.wa-flutuante {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--wa);
+  color: var(--branco);
+  box-shadow: 0 10px 26px -6px rgba(18, 92, 45, 0.55), 0 3px 10px rgba(23, 18, 15, 0.18);
+  transition: transform var(--t), opacity var(--t), background var(--t);
+}
+.wa-flutuante svg { width: 28px; height: 28px; fill: currentColor; }
+.wa-flutuante:hover { background: var(--wa-escuro); transform: translateY(-2px); }
+.wa-flutuante.armado { opacity: 0; transform: translateY(12px) scale(0.92); pointer-events: none; }
+.wa-flutuante.armado.visivel { opacity: 1; transform: none; pointer-events: auto; }
+
 /* ---------- reveal (só quando há JS) ---------- */
 .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
 .js .reveal.dentro { opacity: 1; transform: none; }
@@ -908,6 +934,7 @@ h1, h2, h3 {
   .nav { display: none; }
   .cabecalho-acoes .botao-p { display: none; }
   .menu-botao { display: flex; }
+  .wa-flutuante { display: flex; }   /* cobre o vão do botão de WhatsApp escondido no cabeçalho */
   .lb-grade { grid-template-columns: repeat(2, 1fr); }
   .rodape-grade { grid-template-columns: 1fr 1fr; }
   .rodape-marca { grid-column: 1 / -1; }
@@ -934,6 +961,7 @@ h1, h2, h3 {
     transition-duration: 0.001ms !important;
   }
   .reveal { opacity: 1 !important; transform: none !important; }
+  .wa-flutuante.armado { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
   .marquee-trilho { animation: none; }
   .preloader-linha { transform: scaleX(1); }
 }

@@ -316,6 +316,27 @@
     }, { passive: true });
   }
 
+  /* ---------- whatsapp flutuante ----------
+     No mobile, o botão de WhatsApp do cabeçalho some ao rolar. Este botão
+     fixo cobre esse vão. Aparece só depois que a pessoa passa do hero,
+     pra não competir com o CTA principal logo na abertura. */
+  function waFlutuante() {
+    var btn = document.querySelector(".wa-flutuante");
+    if (!btn) return;
+    var hero = document.querySelector(".hero");
+    var gatilho = hero ? hero.offsetHeight * 0.6 : 480;
+    btn.classList.add("armado");
+    var pendente = false;
+    function aval() {
+      pendente = false;
+      btn.classList.toggle("visivel", window.scrollY > gatilho);
+    }
+    aval();
+    window.addEventListener("scroll", function () {
+      if (!pendente) { pendente = true; requestAnimationFrame(aval); }
+    }, { passive: true });
+  }
+
   /* ---------- init ---------- */
   preloader();
   document.addEventListener("DOMContentLoaded", function () {
@@ -330,6 +351,7 @@
     copiarEndereco();
     voltarAoTopo();
     marquee();
+    waFlutuante();
     var ano = document.getElementById("ano");
     if (ano) ano.textContent = new Date().getFullYear();
   });
